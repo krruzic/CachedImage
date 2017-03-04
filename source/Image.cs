@@ -50,6 +50,8 @@ namespace CachedImage
                     bitmapImage.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.Default);
                     bitmapImage.EndInit();
                     cachedImage.Source = bitmapImage;
+                    // freezing helps with GC apparently. See: http://stackoverflow.com/a/11203193
+                    bitmapImage.Freeze();
                     break;
 
                 case FileCache.CacheMode.Dedicated:
@@ -64,6 +66,8 @@ namespace CachedImage
                         bitmapImage.StreamSource = memoryStream;
                         bitmapImage.EndInit();
                         cachedImage.Source = bitmapImage;
+                        // freezing helps with GC apparently. See: http://stackoverflow.com/a/11203193
+                        bitmapImage.Freeze();
                     }
                     catch (Exception)
                     {
